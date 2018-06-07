@@ -142,7 +142,7 @@ type StackdriverConf =
       resource = defaultArg resource Global
       labels = defaultArg labels HashMap.empty
       maxBatchSize = defaultArg batchSize 50us
-      maxInflight = defaultArg maxInflight 5us }
+      maxInflight = defaultArg maxInflight 10us }
 
 let empty: StackdriverConf =
   StackdriverConf.create "CHANGE_PROJECT_ID"
@@ -243,23 +243,23 @@ module internal Impl =
         Job.iterateServer 0u <| fun inflight ->
         comm ^=> function
           | Acquire (replyCh, nack) when inflight = maxPar ->
-            printfn "Acquire, Inflight=%i (maxPar), q=%i" inflight q.Count
+            //printfn "Acquire, Inflight=%i (maxPar), q=%i" inflight q.Count
             q.Enqueue (replyCh, nack)
             Alt.always inflight
 
           | Acquire (replyCh, nack) ->
-            printfn "Acquire, Inflight=%i, q=%i" inflight q.Count
+            //printfn "Acquire, Inflight=%i, q=%i" inflight q.Count
             Alt.choosy [| replyCh *<- () ^->. inflight + 1u
                           nack ^->. inflight |]
 
           | Release when inflight <> 0u && q.Count > 0 ->
-            printfn "Release (inflight <> 0, q <> 0), q=%i" q.Count
+            //printfn "Release (inflight <> 0, q <> 0), q=%i" q.Count
             let replyCh, nack = q.Dequeue()
             Alt.choosy [| replyCh *<- () ^->. inflight
                           nack ^->. inflight - 1u |]
 
           | Release when inflight <> 0u ->
-            printfn "Release (inflight <> 0), q=%i" q.Count
+            //printfn "Release (inflight <> 0), q=%i" q.Count
             Alt.always (inflight - 1u)
 
           | Release ->
