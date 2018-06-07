@@ -80,6 +80,24 @@ let target =
 
       do! flush target
     }
+
+    testCaseJob "10k messages" <| job {
+      let targetConf = Stackdriver.create stackdriver.Value "logary-stackdriver"
+      let! target = Target.create ri targetConf
+
+      let ex = raisedExn "boohoo"
+      for i in 1..10_000 do
+        let message =
+          event LogLevel.Info "Stress test {blah}"
+          |> setField "blah" 12345
+          |> setContext "zone" "foobar"
+          |> addExn ex
+        let! inBuffer = Target.log target message
+        do inBuffer |> function Ok _ -> ()
+                              | Result.Error e -> failtestf "Failure placing in buffer %A" e
+
+      do! flush target
+    }
   ]
 
 [<EntryPoint>]
