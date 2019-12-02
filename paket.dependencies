@@ -50,6 +50,8 @@ nuget protobuf-net
 nuget System.Memory
 nuget System.Data.Odbc
 
+nuget NETStandard.Library ~> 2.0.3
+
 github eiriktsarpalis/TypeShape:c39f18a164a9ce227656e2806c2bddfdde623a68 src/TypeShape/TypeShape.fs
 github eiriktsarpalis/TypeShape:c39f18a164a9ce227656e2806c2bddfdde623a68 src/TypeShape/Utils.fs
 github haf/YoLo:bd91bbe94a183aa9dc9c13e885c73b20516b01e7 YoLo.fs
