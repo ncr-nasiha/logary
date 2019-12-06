@@ -8,6 +8,10 @@
   <ItemGroup>
     <Compile Include="Targets_Shipper.fs" />
     <None Include="paket.references" />
+    <PackageReference Include="EventStore.Client" Version="5.0.5" />
+    <PackageReference Include="FSharp.Control.Reactive" Version="4.2.0" />
+    <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.3" />
+    <PackageReference Include="TaskBuilder.fs" Version="2.1.0" />
     <ProjectReference Include="..\..\Logary\Logary.fsproj" />
   </ItemGroup>
   <Import Project="..\..\..\.paket\Paket.Restore.targets" />

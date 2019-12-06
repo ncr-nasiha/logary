@@ -16,6 +16,10 @@
     <Compile Include="ExampleTimers.fs" />
     <Compile Include="Program.fs" />
     <None Include="paket.references" />
+    <PackageReference Include="EventStore.Client" Version="5.0.5" />
+    <PackageReference Include="FSharp.Control.Reactive" Version="4.2.0" />
+    <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.3" />
+    <PackageReference Include="TaskBuilder.fs" Version="2.1.0" />
     <ProjectReference Include="..\..\src\Logary\Logary.fsproj" />
     <ProjectReference Include="..\..\src\targets\Logary.Targets.InfluxDb\Logary.Targets.InfluxDb.fsproj" />
     <ProjectReference Include="..\..\src\targets\Logary.Targets.RabbitMQ\Logary.Targets.RabbitMQ.fsproj" />

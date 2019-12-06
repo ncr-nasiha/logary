@@ -6,15 +6,18 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\adapters\Logary.Adapters.AspNetCore\Logary.Adapters.AspNetCore.fsproj"/>
-    <ProjectReference Include="..\..\src\Logary.CSharp\Logary.CSharp.csproj"/>
-    <ProjectReference Include="..\..\src\Logary\Logary.fsproj"/>
-    <ProjectReference Include="..\..\src\targets\Logary.Targets.Jaeger\Logary.Targets.Jaeger.fsproj"/>
+    <ProjectReference Include="..\..\src\adapters\Logary.Adapters.AspNetCore\Logary.Adapters.AspNetCore.fsproj" />
+    <ProjectReference Include="..\..\src\Logary.CSharp\Logary.CSharp.csproj" />
+    <ProjectReference Include="..\..\src\Logary\Logary.fsproj" />
+    <ProjectReference Include="..\..\src\targets\Logary.Targets.Jaeger\Logary.Targets.Jaeger.fsproj" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="EventStore.Client" Version="5.0.5" />
+    <PackageReference Include="FSharp.Control.Reactive" Version="4.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="TaskBuilder.fs" Version="2.1.0" />
   </ItemGroup>
 
-  <Import Project="..\..\.paket\Paket.Restore.targets"/>
+  <Import Project="..\..\.paket\Paket.Restore.targets" />
 </Project>

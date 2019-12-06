@@ -6,4 +6,10 @@
     <TargetFrameworks>netstandard2.0</TargetFrameworks>
     <RootNamespace>Logary.Facade</RootNamespace>
   </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="EventStore.Client" Version="5.0.5" />
+    <PackageReference Include="FSharp.Control.Reactive" Version="4.2.0" />
+    <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.3" />
+    <PackageReference Include="TaskBuilder.fs" Version="2.1.0" />
+  </ItemGroup>
 </Project>

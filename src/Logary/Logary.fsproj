@@ -108,6 +108,7 @@
     <!-- Below: implementations, factory api -->
     <Compile Include="CSharp.fs" />
     <Compile Include="Configuration/Factory.Target.fs" />
+    <Compile Include="Targets\DomainEventSourcing.fs" />
     <Compile Include="Targets\test01.fs" />
     <Compile Include="Targets/Core.fs" />
     <Compile Include="Targets/Noop.fs" />
@@ -120,6 +121,12 @@
     <Compile Include="AssemblyInternals.fs" />
     <Compile Include="AssemblyInfo.fs" />
     <None Include="paket.references" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="EventStore.Client" Version="5.0.5" />
+    <PackageReference Include="FSharp.Control.Reactive" Version="4.2.0" />
+    <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.3" />
+    <PackageReference Include="TaskBuilder.fs" Version="2.1.0" />
   </ItemGroup>
   <Import Project="..\..\.paket\Paket.Restore.targets" />
 </Project>

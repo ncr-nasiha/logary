@@ -19,6 +19,11 @@
     <Content Include="paket.references" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="EventStore.Client" Version="5.0.5" />
+    <PackageReference Include="FSharp.Control.Reactive" Version="4.2.0" />
+    <PackageReference Include="TaskBuilder.fs" Version="2.1.0" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="../../../src/Logary/Logary.fsproj" />
   </ItemGroup>
   <Import Project="..\..\..\.paket\Paket.Restore.targets" />

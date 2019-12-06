@@ -17,6 +17,10 @@
     <Content Include="stackdriver-service-account.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <PackageReference Include="EventStore.Client" Version="5.0.5" />
+    <PackageReference Include="FSharp.Control.Reactive" Version="4.2.0" />
+    <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.3" />
+    <PackageReference Include="TaskBuilder.fs" Version="2.1.0" />
     <ProjectReference Include="../../Logary/Logary.fsproj" />
     <ProjectReference Include="..\..\Logary.Tests\Logary.Tests.fsproj" />
     <ProjectReference Include="..\..\targets\Logary.Targets.Stackdriver\Logary.Targets.Stackdriver.fsproj" />
