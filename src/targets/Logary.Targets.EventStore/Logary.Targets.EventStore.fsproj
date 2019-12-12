@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <AssemblyName>Logary.Targets.EventStore</AssemblyName>
+    <TargetFrameworks>netstandard2.0</TargetFrameworks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="AssemblyInfo.fs" />
+    <Compile Include="Target_EventStore.fs" />
+    <Compile Include="AssemblyInternals.fs" />
+    <None Include="paket.references" />
+    <PackageReference Include="EventStore.Client" Version="5.0.5" />
+    <PackageReference Include="Expecto" Version="8.13.1" />
+    <PackageReference Include="FSharp.Control.Reactive" Version="4.2.0" />
+    <PackageReference Include="Hopac" Version="0.4.1" />
+    <PackageReference Include="Microsoft.NETCore.Platforms" Version="3.1.0" />
+    <PackageReference Include="Microsoft.Rest.ClientRuntime" Version="2.3.21" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="NodaTime" Version="2.4.7" />
+    <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.3" />
+    <PackageReference Include="TaskBuilder.fs" Version="2.1.0" />
+    <ProjectReference Include="..\..\Logary\Logary.fsproj" />
+  </ItemGroup>
+  <Import Project="..\..\..\.paket\Paket.Restore.targets" />
+</Project>

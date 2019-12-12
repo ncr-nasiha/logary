@@ -108,6 +108,7 @@
     <!-- Below: implementations, factory api -->
     <Compile Include="CSharp.fs" />
     <Compile Include="Configuration/Factory.Target.fs" />
+    <Compile Include="Targets\TestES.fs" />
     <Compile Include="Targets\DomainEventSourcing.fs" />
     <Compile Include="Targets\test01.fs" />
     <Compile Include="Targets/Core.fs" />

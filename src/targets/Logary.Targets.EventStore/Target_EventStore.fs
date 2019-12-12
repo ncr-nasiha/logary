@@ -8,6 +8,17 @@ open Logary                      // for the DataModel
 open Logary.Internals            // for the TargetAPI
 open Logary.Configuration.Target // for the fluent config API
 
+open DomainEventSourcing
+open EventStore.ClientAPI
+open FSharp.Control.Tasks.V2.ContextInsensitive
+open System.Reactive.Subjects
+open System.Net
+open Newtonsoft.Json
+open System
+open System.Text
+open System.Threading.Tasks
+
+
 // This is representative of the config you would use for the target you are
 // creating
 
@@ -23,7 +34,7 @@ let empty = { isYes = true }
 module internal Impl =
 
   // This is a placeholder for specific state that your target requires
-  type State = { state: bool }
+  type State = { state: bool } //all that my process needs to remember during its existence
 
   // This is the main entry point of the target. It returns a Job<unit>
   // and as such doesn't have side effects until the Job is started.
@@ -39,29 +50,34 @@ module internal Impl =
         RingBuffer.take api.requests ^=> function
           // The Log discriminated union case contains a message which can have
           // either an Event or a Gauge `value` property.
-          | Log (message, ack) ->
+         | Log (message, ack) ->
              
              let CreateEventSourcingConnection() =
                  task {
                      let connection =
                          let ipEndPoint = IPEndPoint(IPAddress.Loopback, 1113)
-                         EventStoreConnection.Create(ipEndlPoint)
+                         EventStoreConnection.Create(ipEndPoint)
                      do! connection.ConnectAsync()
                      return connection
                  }
-             
-             let AddEventToStreamAsync (connection: IEventStoreConnection) streamName eventName message =
+
+             let connectionTask = CreateEventSourcingConnection()
+
+             let AddEventToStreamAsync (connectionTask: Task<IEventStoreConnection>) streamName eventName message =
                  task {
                      let serializedEventData =
                          message
                          |> JsonConvert.SerializeObject
                          |> Encoding.UTF8.GetBytes
                      let event = EventData(Guid.NewGuid(), eventName, true, serializedEventData, null)
-             
+
+                     let! connection = connectionTask
                      let! _ = connection.AppendToStreamAsync(streamName, int64 ExpectedVersion.Any, event)
                      ()
                  }
-             ()
+             AddEventToStreamAsync connectionTask message.value message.value
+             
+             
              //Do something with the `message` value specific to the target
              //you are creating.
 
@@ -69,9 +85,9 @@ module internal Impl =
              //recursing below.
             
              //This is a simple acknowledgement using unit as the signal
-            ack *<= () (* LHS: the ACK is a unit sent to `ack` *) >>= fun () ->
+             ack *<= () (* LHS: the ACK is a unit sent to `ack` *) >>= fun () ->
                         (* RHS (above): the callback after the ACK is done *)
-            loop { state = not state.state } // recurse
+             loop { state = not state.state } // recurse
 
           // Since the RingBuffer is fair, when you receive the flush message, all
           // you have to do is ensure the previous Messages were successfully written
